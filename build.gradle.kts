@@ -28,17 +28,13 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
-        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     }
 }
 
 allprojects {
     group = "com.dol"
     version = "0.0.1-SNAPSHOT"
-
-    java {
-        sourceCompatibility = JavaVersion.VERSION_11
-    }
+    java.sourceCompatibility = JavaVersion.VERSION_11
 
     repositories {
         mavenCentral()
