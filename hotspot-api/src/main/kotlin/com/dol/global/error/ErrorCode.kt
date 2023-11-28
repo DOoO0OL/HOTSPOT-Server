@@ -16,6 +16,8 @@ enum class ErrorCode(
     AUTHENTICATION_NOT_FOUND("인증되지 않은 사용자 입니다.", 404),
     TOO_MANY_AUTHENTICATION_REQUEST("인증 메세지 요청을 5번 초과 한 사용자 입니다.", 429),
 
+    // SERVER
+    SERVER_ERROR("서버 에러입니다.",500),
 
     // TOKEN
     INVALID_TOKEN("유효하지 않은 토큰입니다.", 401),

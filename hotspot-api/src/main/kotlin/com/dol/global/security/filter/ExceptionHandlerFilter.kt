@@ -6,6 +6,7 @@ import com.dol.global.error.response.ErrorResponse
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.JwtException
+import org.apache.coyote.ErrorState
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
@@ -25,6 +26,7 @@ class ExceptionHandlerFilter : OncePerRequestFilter() {
                 is ExpiredJwtException -> exceptionToResponse(ErrorCode.EXPIRED_ACCESS_TOKEN, response)
                 is JwtException -> exceptionToResponse(ErrorCode.INVALID_TOKEN, response)
                 is HotSpotException -> exceptionToResponse(exception.errorCode, response)
+                else -> exceptionToResponse(ErrorCode.SERVER_ERROR, response)
             }
         }
     }
