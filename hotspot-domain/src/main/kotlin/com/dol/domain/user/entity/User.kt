@@ -17,6 +17,9 @@ class User(
     @Column(nullable = false, length = 10)
     val name: String,
 
+    @Column(nullable = false, length = 10)
+    val nickName: String,
+
     @Column(nullable = false, length = 15)
     val phoneNumber: String,
 
