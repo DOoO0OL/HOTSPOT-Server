@@ -15,7 +15,7 @@ import java.security.Key
 import javax.servlet.http.HttpServletRequest
 
 @Component
-class TokenParseAdapter(
+class TokenParser(
     private val userDetailsService: UserDetailsService,
     private val adminDetailsService: AdminDetailsService,
     private val jwtProperties: JwtProperties
