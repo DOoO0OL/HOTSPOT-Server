@@ -34,7 +34,9 @@ class SecurityConfig(
 
     private fun authorizeHttpRequests(http: HttpSecurity) {
         http.authorizeHttpRequests()
-            .mvcMatchers(HttpMethod.GET, "/").permitAll()
+            .mvcMatchers(HttpMethod.POST, "auth/signup").permitAll()
+            .mvcMatchers(HttpMethod.POST, "auth/signin").permitAll()
+            .mvcMatchers(HttpMethod.PATCH, "auth/reissue").permitAll()
             .anyRequest().permitAll()
     }
 
