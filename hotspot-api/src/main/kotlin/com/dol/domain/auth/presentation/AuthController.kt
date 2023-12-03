@@ -5,10 +5,13 @@ import com.dol.domain.auth.presentation.data.request.SignUpRequest
 import com.dol.domain.auth.presentation.data.response.TokenResponse
 import com.dol.domain.auth.service.SignInService
 import com.dol.domain.auth.service.SignUpService
+import com.dol.domain.auth.service.TokenReissueService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -16,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/auth")
 class AuthController(
     private val signUpService: SignUpService,
-    private val signInService: SignInService
+    private val signInService: SignInService,
+    private val tokenReissueService: TokenReissueService
 ) {
 
     @PostMapping("/signup")
@@ -28,5 +32,10 @@ class AuthController(
     fun signIn(@RequestBody signInRequest: SignInRequest): ResponseEntity<TokenResponse> =
         signInService.execute(signInRequest)
             .let { ResponseEntity.ok(it) }
+
+    @PatchMapping("/reissue")
+    fun reissueToken(@RequestHeader refreshToken: String): ResponseEntity<TokenResponse> =
+        tokenReissueService.execute(refreshToken)
+            .let { ResponseEntity.ok(it)}
 
 }
