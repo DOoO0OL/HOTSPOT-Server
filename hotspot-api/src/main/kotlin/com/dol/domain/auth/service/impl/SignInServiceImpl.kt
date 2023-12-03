@@ -19,10 +19,14 @@ class SignInServiceImpl(
     private val tokenGenerator: TokenGenerator
 ) : SignInService {
     override fun execute(signInRequest: SignInRequest): TokenDto {
-        val user = userRepository.findById(signInRequest.id) ?: throw UserNotFoundException()
-        if (!securityUtil.isPasswordMatch(signInRequest.password, user.password)) {
+        val user = userRepository.findById(signInRequest.id) 
+            ?: throw UserNotFoundException()
+        
+        if (!securityUtil.isPasswordMatch(signInRequest.password, user.password))
             throw PasswordNotMatchException()
-        }
-        return tokenGenerator.generateToken(user.idx, user.authority)
+        
+        val token =  tokenGenerator.generateToken(user.idx, user.authority)
+        
+        return token
     }
 }
