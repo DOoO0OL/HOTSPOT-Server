@@ -25,7 +25,7 @@ class SignInServiceImpl(
             ?: throw UserNotFoundException("존재하지 않는 User 입니다.")
         
         if (!securityUtil.isPasswordMatch(signInRequest.password, user.password))
-            throw PasswordNotMatchException("비밀번호가 일치하지 않습니다.")
+            throw PasswordNotMatchException("비밀번호가 일치하지 않습니다. info : [ password = ${signInRequest.password}")
         
         val token =  tokenGenerator.generateToken(user.idx, user.authority)
         

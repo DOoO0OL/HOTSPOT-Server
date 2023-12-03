@@ -1,12 +1,10 @@
 package com.dol.global.security.filter
 
-import com.dol.global.error.ErrorCode
+import com.dol.global.error.ErrorStatus
 import com.dol.global.error.exception.HotSpotException
-import com.dol.global.error.response.ErrorResponse
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.JwtException
-import org.apache.coyote.ErrorState
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
@@ -23,20 +21,19 @@ class ExceptionHandlerFilter : OncePerRequestFilter() {
             filterChain.doFilter(request, response)
         }.onFailure { exception ->
             when(exception) {
-                is ExpiredJwtException -> exceptionToResponse(ErrorCode.EXPIRED_ACCESS_TOKEN, response)
-                is JwtException -> exceptionToResponse(ErrorCode.INVALID_TOKEN, response)
-                is HotSpotException -> exceptionToResponse(exception.errorCode, response)
-                else -> exceptionToResponse(ErrorCode.SERVER_ERROR, response)
+                is ExpiredJwtException -> exceptionToResponse(ErrorStatus.EXPIRED_ACCESS_TOKEN, response)
+                is JwtException -> exceptionToResponse(ErrorStatus.INVALID_TOKEN, response)
+                is HotSpotException -> exceptionToResponse(exception.errorStatus, response)
+                else -> exceptionToResponse(ErrorStatus.SERVER_ERROR, response)
             }
         }
     }
 
-    private fun exceptionToResponse(errorCode: ErrorCode, response: HttpServletResponse) {
-        response.status = errorCode.status
+    private fun exceptionToResponse(errorStatus: ErrorStatus, response: HttpServletResponse) {
+        val errorResponseToJson = ObjectMapper().writeValueAsString(response)
+        response.status = errorStatus.status
         response.contentType = "application/json"
         response.characterEncoding = "utf-8"
-        val errorResponse = ErrorResponse(errorCode.message, errorCode.status)
-        val errorResponseToJson = ObjectMapper().writeValueAsString(errorResponse)
         response.writer.write(errorResponseToJson)
     }
 
