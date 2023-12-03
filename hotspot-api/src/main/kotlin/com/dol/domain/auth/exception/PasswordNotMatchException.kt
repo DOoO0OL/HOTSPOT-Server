@@ -1,6 +1,6 @@
 package com.dol.domain.auth.exception
 
-import com.dol.global.error.ErrorCode
+import com.dol.global.error.ErrorStatus
 import com.dol.global.error.exception.HotSpotException
 
-class PasswordNotMatchException : HotSpotException(ErrorCode.PASSWORD_NOT_MATCH)
+class PasswordNotMatchException(message: String) : HotSpotException(ErrorStatus.PASSWORD_NOT_MATCH)

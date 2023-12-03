@@ -22,10 +22,10 @@ class SignInServiceImpl(
 ) : SignInService {
     override fun execute(signInRequest: SignInRequest): TokenResponse {
         val user = userRepository.findById(signInRequest.id) 
-            ?: throw UserNotFoundException()
+            ?: throw UserNotFoundException("존재하지 않는 User 입니다.")
         
         if (!securityUtil.isPasswordMatch(signInRequest.password, user.password))
-            throw PasswordNotMatchException()
+            throw PasswordNotMatchException("비밀번호가 일치하지 않습니다.")
         
         val token =  tokenGenerator.generateToken(user.idx, user.authority)
         

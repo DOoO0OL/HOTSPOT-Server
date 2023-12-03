@@ -19,8 +19,8 @@ class SignUpServiceImpl(
     private val securityUtil: SecurityUtil
 ) : SignUpService {
     override fun execute(signUpRequest: SignUpRequest) {
-        if (userRepository.existsById(signUpRequest.id)) throw DuplicateIdException()
-        if (userRepository.existsByNickName(signUpRequest.nickName)) throw DuplicateNickNameException()
+        if (userRepository.existsById(signUpRequest.id)) throw DuplicateIdException("이미 존재하는 id 입니다.")
+        if (userRepository.existsByNickName(signUpRequest.nickName)) throw DuplicateNickNameException("이미 존재하는 닉네임입니다.")
 
         val user = User(
             idx = UUID.randomUUID(),
