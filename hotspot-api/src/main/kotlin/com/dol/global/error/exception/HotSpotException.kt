@@ -1,5 +1,6 @@
 package com.dol.global.error.exception
 
-import com.dol.global.error.ErrorCode
+import com.dol.global.error.ErrorStatus
 
-open class HotSpotException(val errorCode: ErrorCode) : RuntimeException(errorCode.message)
+
+open class HotSpotException(val errorStatus: ErrorStatus, override val message: String) : RuntimeException(message)

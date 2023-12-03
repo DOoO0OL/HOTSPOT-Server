@@ -3,7 +3,7 @@ package com.dol.global.security
 import com.dol.global.filter.FilterConfig
 import com.dol.global.security.handler.CustomAccessDeniedHandler
 import com.dol.global.security.handler.CustomAuthenticationEntryPoint
-import com.dol.global.security.jwt.TokenParseAdapter
+import com.dol.global.security.jwt.TokenParser
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val tokenParseAdapter: TokenParseAdapter
+    private val tokenParser: TokenParser
 ) {
 
     @Bean
@@ -26,7 +26,7 @@ class SecurityConfig(
             .csrf().disable()
             .formLogin().disable()
             .httpBasic().disable()
-            .apply(FilterConfig(tokenParseAdapter))
+            .apply(FilterConfig(tokenParser))
         authorizeHttpRequests(http)
         exceptionHandling(http)
         return http.build()

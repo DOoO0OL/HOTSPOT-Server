@@ -12,9 +12,6 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(HotSpotException::class)
     fun handler(e: HotSpotException): ResponseEntity<ErrorResponse> =
-        ResponseEntity(
-            ErrorResponse(e.errorCode.message, e.errorCode.status),
-            HttpStatus.valueOf(e.errorCode.status)
-        )
+        ResponseEntity(ErrorResponse(e.message, e.errorStatus.status), HttpStatus.valueOf(e.errorStatus.status))
 
 }

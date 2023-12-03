@@ -15,7 +15,7 @@ import java.security.Key
 import javax.servlet.http.HttpServletRequest
 
 @Component
-class TokenParseAdapter(
+class TokenParser(
     private val userDetailsService: UserDetailsService,
     private val adminDetailsService: AdminDetailsService,
     private val jwtProperties: JwtProperties
@@ -43,7 +43,7 @@ class TokenParseAdapter(
         when (body.get(JwtProperties.AUTHORITY, String::class.java)) {
             Authority.ROLE_USER.name -> userDetailsService.loadUserByUsername(body.subject)
             Authority.ROLE_ADMIN.name -> adminDetailsService.loadUserByUsername(body.subject)
-            else -> throw InvalidTokenTypeException()
+            else -> throw InvalidTokenTypeException("유효하지 않는 토큰 타입입니다.")
         }
 
 }

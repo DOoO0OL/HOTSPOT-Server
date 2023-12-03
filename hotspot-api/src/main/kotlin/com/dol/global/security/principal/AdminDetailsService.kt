@@ -17,7 +17,7 @@ class AdminDetailsService(
 
     override fun loadUserByUsername(username: String): UserDetails =
         userRepository.findByIdOrNull(UUID.fromString(username))
-            .let { it ?: throw UserNotFoundException() }
+            .let { it ?: throw UserNotFoundException("유저를 찾을 수 없습니다.") }
             .let { AdminDetails(it.idx) }
 
 }
