@@ -1,6 +1,5 @@
 package com.dol.domain.auth.presentation
 
-import com.dol.domain.auth.mapper.AuthMapper
 import com.dol.domain.auth.presentation.data.request.SignInRequest
 import com.dol.domain.auth.presentation.data.request.SignUpRequest
 import com.dol.domain.auth.presentation.data.response.TokenResponse
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/auth")
 class AuthController(
-    private val authMapper: AuthMapper,
     private val signUpService: SignUpService,
     private val signInService: SignInService
 ) {
@@ -29,6 +27,6 @@ class AuthController(
     @PostMapping("/signin")
     fun signIn(@RequestBody signInRequest: SignInRequest): ResponseEntity<TokenResponse> =
         signInService.execute(signInRequest)
-            .let { ResponseEntity.ok(authMapper.toResponse(it)) }
+            .let { ResponseEntity.ok(it) }
 
 }
