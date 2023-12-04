@@ -28,9 +28,9 @@ class TokenReissueServiceImpl(
         val parsedRefreshToken = tokenParser.parseRefreshTokenToken(refreshToken)
             ?: throw InvalidTokenTypeException("유효하지 않은 토큰입니다. info : [ refreshToken = $refreshToken ]")
         val refreshTokenDomain = refreshTokenRepository.findByIdOrNull(parsedRefreshToken)
-            ?: throw ExpiredRefreshTokenException("만료된 토큰입니다. info : [ refreshToken = $parsedRefreshToken ]")
+            ?: throw ExpiredRefreshTokenException("만료된 토큰입니다.")
         val user = userRepository.findByIdOrNull(refreshTokenDomain.userIdx)
-            ?: throw UserNotFoundException("사용자를 찾을 수 없습니다.")
+            ?: throw UserNotFoundException("사용자를 찾을 수 없습니다. info : [ userIdx = $refreshTokenDomain.userIdx ]")
         val token = tokenGenerator.generateToken(user.idx, user.authority)
         refreshTokenRepository.delete(refreshTokenDomain)
         return TokenResponse(
