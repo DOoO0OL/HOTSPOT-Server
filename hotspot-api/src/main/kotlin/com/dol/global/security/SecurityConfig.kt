@@ -1,5 +1,6 @@
 package com.dol.global.security
 
+import com.dol.domain.user.enums.Authority
 import com.dol.global.filter.FilterConfig
 import com.dol.global.security.handler.CustomAccessDeniedHandler
 import com.dol.global.security.handler.CustomAuthenticationEntryPoint
@@ -40,7 +41,7 @@ class SecurityConfig(
             .mvcMatchers(HttpMethod.PATCH, "auth/reissue").permitAll()
 
             // user
-            .mvcMatchers(HttpMethod.GET, "user/my-page").permitAll()
+            .mvcMatchers(HttpMethod.GET, "user/my-page").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
             .anyRequest().permitAll()
     }
 
