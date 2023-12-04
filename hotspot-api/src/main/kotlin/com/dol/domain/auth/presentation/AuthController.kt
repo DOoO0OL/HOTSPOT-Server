@@ -34,7 +34,7 @@ class AuthController(
             .let { ResponseEntity.ok(it) }
 
     @PatchMapping("/reissue")
-    fun reissueToken(@RequestHeader refreshToken: String): ResponseEntity<TokenResponse> =
+    fun reissueToken(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<TokenResponse> =
         tokenReissueService.execute(refreshToken)
             .let { ResponseEntity.ok(it)}
 
