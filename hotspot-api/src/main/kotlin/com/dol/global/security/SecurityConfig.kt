@@ -1,5 +1,6 @@
 package com.dol.global.security
 
+import com.dol.domain.user.enums.Authority
 import com.dol.global.filter.FilterConfig
 import com.dol.global.security.handler.CustomAccessDeniedHandler
 import com.dol.global.security.handler.CustomAuthenticationEntryPoint
@@ -34,9 +35,13 @@ class SecurityConfig(
 
     private fun authorizeHttpRequests(http: HttpSecurity) {
         http.authorizeHttpRequests()
+            // auth
             .mvcMatchers(HttpMethod.POST, "auth/signup").permitAll()
             .mvcMatchers(HttpMethod.POST, "auth/signin").permitAll()
             .mvcMatchers(HttpMethod.PATCH, "auth/reissue").permitAll()
+
+            // user
+            .mvcMatchers(HttpMethod.GET, "user/my-page").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
             .anyRequest().permitAll()
     }
 
