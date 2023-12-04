@@ -18,7 +18,7 @@ class MyPageServiceImpl(
     override fun execute(): MyPageResponse {
         val userIdx = userUtil.getCurrentUserIdx()
         val user = userRepository.findByIdOrNull(userIdx)
-            ?: throw UserNotFoundException("사용자가 존재하지 않습니다.")
+            ?: throw UserNotFoundException("사용자가 존재하지 않습니다. info : [ userIdx = $userIdx ]")
 
         return MyPageResponse(
             id = user.id,
