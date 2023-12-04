@@ -1,9 +1,11 @@
 package com.dol.domain.auth.service.impl
 
+import com.dol.domain.auth.entity.RefreshToken
 import com.dol.domain.auth.exception.ExpiredRefreshTokenException
 import com.dol.domain.auth.presentation.data.response.TokenResponse
 import com.dol.domain.auth.repository.RefreshTokenRepository
 import com.dol.domain.auth.service.TokenReissueService
+import com.dol.domain.user.entity.User
 import com.dol.domain.user.exception.UserNotFoundException
 import com.dol.domain.user.repository.UserRepository
 import com.dol.global.security.jwt.TokenGenerator
@@ -27,6 +29,7 @@ class TokenReissueServiceImpl(
         val refreshTokenDomain = refreshTokenRepository.findByIdOrNull(parsedRefreshToken) ?: throw ExpiredRefreshTokenException("만료된 토큰입니다.")
         val user = userRepository.findByIdOrNull(refreshTokenDomain.userIdx) ?: throw UserNotFoundException("사용자를 찾을 수 없습니다.")
         val token = tokenGenerator.generateToken(user.idx, user.authority)
+        refreshTokenRepository.delete(refreshTokenDomain)
         return TokenResponse(
             accessToken = token.accessToken,
             refreshToken = token.refreshToken,
