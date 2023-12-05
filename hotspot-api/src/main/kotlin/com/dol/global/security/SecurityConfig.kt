@@ -39,6 +39,7 @@ class SecurityConfig(
             .mvcMatchers(HttpMethod.POST, "auth/signup").permitAll()
             .mvcMatchers(HttpMethod.POST, "auth/signin").permitAll()
             .mvcMatchers(HttpMethod.PATCH, "auth/reissue").permitAll()
+            .mvcMatchers(HttpMethod.DELETE, "auth/logout").permitAll()
 
             // user
             .mvcMatchers(HttpMethod.GET, "user/my-page").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
