@@ -1,5 +1,6 @@
 package com.dol.global.security.principal
 
+import com.dol.domain.user.entity.User
 import com.dol.domain.user.enums.Authority
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -7,15 +8,15 @@ import org.springframework.security.core.userdetails.UserDetails
 import java.util.*
 
 class UserDetails(
-    private val accountIdx: UUID
+    private val user: User
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
-        mutableListOf(SimpleGrantedAuthority(Authority.ROLE_USER.name))
+        mutableListOf(user.authority)
 
     override fun getPassword(): String? = null
 
-    override fun getUsername(): String = accountIdx.toString()
+    override fun getUsername(): String = user.idx.toString()
 
     override fun isAccountNonExpired(): Boolean = true
 
