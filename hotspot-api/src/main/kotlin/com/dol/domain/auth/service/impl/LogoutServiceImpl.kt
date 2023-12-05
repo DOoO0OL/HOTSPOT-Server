@@ -16,10 +16,10 @@ class LogoutServiceImpl(
     private val refreshTokenRepository: RefreshTokenRepository
 ) : LogoutService {
     override fun execute(refreshToken: String) {
-        val parseRefreshTokenToken = tokenParser.parseRefreshTokenToken(refreshToken)
+        val parsedRefreshToken = tokenParser.parseRefreshTokenToken(refreshToken)
             ?: throw InvalidTokenTypeException("유효하지 않은 토큰입니다. info : [ refreshToken = $refreshToken ]")
-        val refreshTokenDomain = refreshTokenRepository.findByIdOrNull(parseRefreshTokenToken)
-            ?: throw ExpiredRefreshTokenException("토큰이 만료되었습니다. info : [ refreshToken = $parseRefreshTokenToken ]")
-        refreshTokenRepository.delete(refreshTokenDomain)
+        val refreshTokenEntity = refreshTokenRepository.findByIdOrNull(parsedRefreshToken)
+            ?: throw ExpiredRefreshTokenException("토큰이 만료되었습니다. info : [ refreshToken = $parsedRefreshToken ]")
+        refreshTokenRepository.delete(refreshTokenEntity)
     }
 }
