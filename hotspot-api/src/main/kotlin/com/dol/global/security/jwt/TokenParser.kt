@@ -1,15 +1,12 @@
 package com.dol.global.security.jwt
 
-import com.dol.domain.user.enums.Authority
-import com.dol.global.security.jwt.common.exception.InvalidTokenTypeException
 import com.dol.global.security.jwt.common.properties.JwtProperties
-import com.dol.global.security.principal.AdminDetailsService
 import com.dol.global.security.principal.UserDetailsService
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.security.Key
 import javax.servlet.http.HttpServletRequest
@@ -17,7 +14,6 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class TokenParser(
     private val userDetailsService: UserDetailsService,
-    private val adminDetailsService: AdminDetailsService,
     private val jwtProperties: JwtProperties
 ) {
      fun parseAccessToken(request: HttpServletRequest): String? =
@@ -40,10 +36,5 @@ class TokenParser(
             .body
 
     fun getAuthority(body: Claims): UserDetails =
-        when (body.get(JwtProperties.AUTHORITY, String::class.java)) {
-            Authority.ROLE_USER.name -> userDetailsService.loadUserByUsername(body.subject)
-            Authority.ROLE_ADMIN.name -> adminDetailsService.loadUserByUsername(body.subject)
-            else -> throw InvalidTokenTypeException("유효하지 않는 토큰 타입입니다.")
-        }
-
+        userDetailsService.loadUserByUsername(body.subject)
 }
