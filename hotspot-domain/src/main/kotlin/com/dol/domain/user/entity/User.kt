@@ -11,25 +11,25 @@ class User(
     @Column(name = "user_idx", columnDefinition = "BINARY(16)", nullable = false)
     override val idx: UUID,
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 50)
     val id: String,
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 20)
     val name: String,
 
     @Column(nullable = false, length = 10)
     val nickName: String,
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 20)
     val phoneNumber: String,
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 30)
     val password: String,
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 30)
     val city: String,
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 30)
     val gu: String,
 
     @Column(nullable = true, columnDefinition = "TEXT")
