@@ -42,7 +42,7 @@ class SecurityConfig(
             .mvcMatchers(HttpMethod.DELETE, "auth/logout").permitAll()
 
             // user
-            .mvcMatchers(HttpMethod.GET, "user/my-page").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+            .mvcMatchers(HttpMethod.GET, "user/my-page").authenticated()
             .anyRequest().permitAll()
     }
 
