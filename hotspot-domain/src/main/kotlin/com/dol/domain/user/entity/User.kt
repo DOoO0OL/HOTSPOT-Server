@@ -1,6 +1,7 @@
 package com.dol.domain.user.entity
 
 import com.dol.common.entity.BaseUUIDEntity
+import com.dol.domain.follow.entity.Follow
 import com.dol.domain.user.enums.Authority
 import java.util.*
 import javax.persistence.*
@@ -8,7 +9,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "user")
 class User(
-    @Column(name = "user_idx", columnDefinition = "BINARY(16)", nullable = false)
+    @Column(name = "idx", columnDefinition = "BINARY(16)", nullable = false)
     override val idx: UUID,
 
     @Column(nullable = false, length = 50)
@@ -23,7 +24,7 @@ class User(
     @Column(nullable = false, length = 20)
     val phoneNumber: String,
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false)
     val password: String,
 
     @Column(nullable = false, length = 30)
@@ -36,5 +37,11 @@ class User(
     val profileUrl: String?,
 
     @Enumerated(EnumType.STRING)
-    val authority: Authority
+    val authority: Authority,
+
+    @OneToMany(mappedBy = "toUser")
+    val following: List<Follow> = listOf(),
+
+    @OneToMany(mappedBy = "fromUser")
+    val follower: List<Follow> = listOf()
 ): BaseUUIDEntity(idx)
