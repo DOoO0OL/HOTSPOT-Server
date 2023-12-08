@@ -25,4 +25,7 @@ enum class ErrorStatus(
     EXPIRED_ACCESS_TOKEN(401),
     EXPIRED_REFRESH_TOKEN(401),
 
+    // FOLLOW
+    ALREADY_FOLLOW(401)
+
 }

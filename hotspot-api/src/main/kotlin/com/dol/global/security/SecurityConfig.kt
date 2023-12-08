@@ -43,6 +43,10 @@ class SecurityConfig(
 
             // user
             .mvcMatchers(HttpMethod.GET, "user/my-page").authenticated()
+
+            // follow
+            .mvcMatchers(HttpMethod.POST, "/follow").authenticated()
+
             .anyRequest().permitAll()
     }
 
