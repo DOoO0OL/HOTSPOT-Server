@@ -1,7 +1,7 @@
 package com.dol.domain.follow.service
 
-import com.dol.domain.follow.presentation.data.request.FollowCancelRequest
+import java.util.UUID
 
 interface FollowCancelService {
-    fun execute(followCancelRequest: FollowCancelRequest)
+    fun execute(toUserIdx: UUID)
 }
