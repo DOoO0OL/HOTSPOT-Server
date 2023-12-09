@@ -7,5 +7,4 @@ import java.util.UUID
 
 interface FollowRepository : JpaRepository<Follow, UUID> {
     fun existsByToUserAndFromUser(toUser: User, fromUser: User): Boolean
-    fun deleteByToUserAndFromUser(toUser: User, fromUser: User)
 }

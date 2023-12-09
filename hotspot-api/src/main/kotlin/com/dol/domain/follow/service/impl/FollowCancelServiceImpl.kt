@@ -3,6 +3,7 @@ package com.dol.domain.follow.service.impl
 import com.dol.common.util.UserUtil
 import com.dol.domain.follow.exception.AlreadyFollowException
 import com.dol.domain.follow.repository.FollowRepository
+import com.dol.domain.follow.repository.custom.CustomFollowRepository
 import com.dol.domain.follow.service.FollowCancelService
 import com.dol.domain.user.exception.UserNotFoundException
 import com.dol.domain.user.repository.UserRepository
@@ -16,7 +17,8 @@ import java.util.UUID
 class FollowCancelServiceImpl(
     private val userUtil: UserUtil,
     private val userRepository: UserRepository,
-    private val followRepository: FollowRepository
+    private val followRepository: FollowRepository,
+    private val customFollowRepository: CustomFollowRepository
 ) : FollowCancelService {
     override fun execute(toUserIdx: UUID) {
         val currentUserIdx = userUtil.getCurrentUserIdx()
@@ -27,6 +29,6 @@ class FollowCancelServiceImpl(
         if (!followRepository.existsByToUserAndFromUser(toUser, fromUser)) {
             throw AlreadyFollowException("팔로우 되어있지 않은 유저입니다.")
         }
-        followRepository.deleteByToUserAndFromUser(toUser, fromUser)
+        customFollowRepository.delete(toUser, fromUser)
     }
 }
