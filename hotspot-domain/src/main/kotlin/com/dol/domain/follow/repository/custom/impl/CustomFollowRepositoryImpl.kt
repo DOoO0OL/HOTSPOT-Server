@@ -1,6 +1,6 @@
 package com.dol.domain.follow.repository.custom.impl
 
-import com.dol.domain.follow.entity.QFollow
+import com.dol.domain.follow.entity.QFollow.follow
 import com.dol.domain.follow.repository.custom.CustomFollowRepository
 import com.dol.domain.user.entity.User
 import com.querydsl.jpa.impl.JPAQueryFactory
@@ -13,9 +13,11 @@ class CustomFollowRepositoryImpl(
     private val queryFactory: JPAQueryFactory,
 ) : CustomFollowRepository {
     override fun delete(toUser: User, fromUser: User) {
-        val qFollow = QFollow.follow
-        queryFactory.delete(qFollow)
-            .where(qFollow.toUser.eq(toUser).and(qFollow.fromUser.eq(fromUser)))
+        queryFactory.delete(follow)
+            .where(
+                follow.toUser.eq(toUser),
+                follow.fromUser.eq(fromUser)
+            )
             .execute()
     }
 }
