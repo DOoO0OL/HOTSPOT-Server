@@ -46,7 +46,7 @@ class AuthController(
             .let { ResponseEntity.status(HttpStatus.NO_CONTENT).build() }
 
     @PostMapping("/send/auth-code")
-    fun sendAuthCode(@RequestParam phoneNumber: String): ResponseEntity<Void> =
+    fun sendAuthCode(@RequestParam("phoneNumber") phoneNumber: String): ResponseEntity<Void> =
         sendAuthCodeService.execute(phoneNumber)
             .let { ResponseEntity.status(HttpStatus.OK).build() }
 
