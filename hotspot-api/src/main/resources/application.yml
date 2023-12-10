@@ -32,3 +32,8 @@ jwt:
   time:
     access-exp: ${JWT_ACCESS_EXP}
     refresh-exp: ${JWT_REFRESH_EXP}
+
+coolsms:
+  access: ${COOLSMS_ACCESS}
+  secret: ${COOLSMS_SECRET}
+  phoneNumber: ${COOLSMS_PHONE_NUMBER}
