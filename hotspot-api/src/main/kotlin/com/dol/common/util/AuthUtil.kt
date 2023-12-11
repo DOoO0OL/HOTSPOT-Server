@@ -11,7 +11,6 @@ class AuthUtil(
     private val authCodeRepository: AuthCodeRepository,
     private val authenticationRepository: AuthenticationRepository
 ) {
-
     companion object {
         const val SMS_EXP = 300
     }
