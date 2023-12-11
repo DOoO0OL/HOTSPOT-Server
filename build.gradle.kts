@@ -29,6 +29,9 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         implementation("org.springframework.boot:spring-boot-starter-security")
+        implementation("net.nurigo:javaSDK:2.2")
+        implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+        testImplementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
     }
 }
 

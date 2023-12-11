@@ -3,10 +3,7 @@ package com.dol.domain.auth.presentation
 import com.dol.domain.auth.presentation.data.request.SignInRequest
 import com.dol.domain.auth.presentation.data.request.SignUpRequest
 import com.dol.domain.auth.presentation.data.response.TokenResponse
-import com.dol.domain.auth.service.LogoutService
-import com.dol.domain.auth.service.SignInService
-import com.dol.domain.auth.service.SignUpService
-import com.dol.domain.auth.service.TokenReissueService
+import com.dol.domain.auth.service.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -23,7 +21,8 @@ class AuthController(
     private val signUpService: SignUpService,
     private val signInService: SignInService,
     private val tokenReissueService: TokenReissueService,
-    private val logoutService: LogoutService
+    private val logoutService: LogoutService,
+    private val sendAuthCodeService: SendAuthCodeService
 ) {
 
     @PostMapping("/signup")
@@ -45,5 +44,10 @@ class AuthController(
     fun logout(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<Void> =
         logoutService.execute(refreshToken)
             .let { ResponseEntity.status(HttpStatus.NO_CONTENT).build() }
+
+    @PostMapping("/send/auth-code")
+    fun sendAuthCode(@RequestParam("phoneNumber") phoneNumber: String): ResponseEntity<Void> =
+        sendAuthCodeService.execute(phoneNumber)
+            .let { ResponseEntity.status(HttpStatus.OK).build() }
 
 }
