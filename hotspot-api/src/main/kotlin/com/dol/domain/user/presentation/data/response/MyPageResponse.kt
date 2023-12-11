@@ -4,5 +4,7 @@ data class MyPageResponse(
     val id: String,
     val name: String,
     val nickName: String,
-    val profileUrl: String?
+    val profileUrl: String?,
+    val follower: Int,
+    val following: Int
 )
