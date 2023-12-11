@@ -7,6 +7,7 @@ import com.dol.domain.auth.exception.ManyAuthenticationRequestException
 import com.dol.domain.auth.repository.AuthCodeRepository
 import com.dol.domain.auth.repository.AuthenticationRepository
 import com.dol.domain.auth.service.SendAuthCodeService
+import com.dol.thirdparty.coolSms.properties.CoolSmsExpProperties
 import com.dol.thirdparty.coolSms.sender.CoolSmsSender
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -17,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional
 class SendAuthCodeServiceImpl(
     private val authCodeRepository: AuthCodeRepository,
     private val authenticationRepository: AuthenticationRepository,
-    private val coolSmsSender: CoolSmsSender
+    private val coolSmsSender: CoolSmsSender,
+    private val coolSmsExpProperties: CoolSmsExpProperties
 ) : SendAuthCodeService {
     override fun execute(phoneNumber: String) {
         val isExistsAuthentication = authenticationRepository.existsByPhoneNumber(phoneNumber)
@@ -39,7 +41,7 @@ class SendAuthCodeServiceImpl(
         val authCodeDomain = AuthCode(
             phoneNumber = phoneNumber,
             authCode = authCode,
-            expiredAt = 300
+            expiredAt = coolSmsExpProperties.coolSmsExp
         )
         authCodeRepository.save(authCodeDomain)
 

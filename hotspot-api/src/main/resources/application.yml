@@ -37,3 +37,5 @@ coolsms:
   access: ${COOLSMS_ACCESS}
   secret: ${COOLSMS_SECRET}
   phoneNumber: ${COOLSMS_PHONE_NUMBER}
+  time:
+    coolsms-exp: ${COOLSMS_EXP}
