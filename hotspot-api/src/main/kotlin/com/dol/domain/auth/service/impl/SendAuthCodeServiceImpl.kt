@@ -1,5 +1,6 @@
 package com.dol.domain.auth.service.impl
 
+import com.dol.common.util.AuthUtil
 import com.dol.domain.auth.entity.AuthCode
 import com.dol.domain.auth.entity.Authentication
 import com.dol.domain.auth.exception.AuthenticationNotFoundException
@@ -16,40 +17,22 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(rollbackFor = [Exception::class])
 class SendAuthCodeServiceImpl(
-    private val authCodeRepository: AuthCodeRepository,
     private val authenticationRepository: AuthenticationRepository,
     private val coolSmsSender: CoolSmsSender,
-    private val coolSmsExpProperties: CoolSmsExpProperties
+    private val authUtil: AuthUtil
 ) : SendAuthCodeService {
     override fun execute(phoneNumber: String) {
-        val isExistsAuthentication = authenticationRepository.existsByPhoneNumber(phoneNumber)
-
-        if (isExistsAuthentication) {
-            authenticationRepository.findByIdOrNull(phoneNumber)
-                .let { it ?: throw AuthenticationNotFoundException("인증되지 않은 전화번호입니다.") }
-                .let {
-                    if (it.attemptCount > 5)
-                        throw ManyAuthenticationRequestException("요청 횟수를 초과하였습니다.")
-                    else
-                        authenticationRepository.save(it.increaseAuthenticationCount())
-                }
-        }
-
+        authenticationRepository.findByIdOrNull(phoneNumber)
+            .let { it ?: authUtil.saveAuthentication(phoneNumber) }
+            .let {
+                if (it.attemptCount > 5)
+                    throw ManyAuthenticationRequestException("요청 횟수를 초과하였습니다.")
+                else
+                    authenticationRepository.save(it.increaseAuthenticationCount())
+            }
         val authCode = generateAuthCode(9999)
         coolSmsSender.sendSms(phoneNumber, authCode)
-
-        val authCodeDomain = AuthCode(
-            phoneNumber = phoneNumber,
-            authCode = authCode,
-            expiredAt = coolSmsExpProperties.coolSmsExp
-        )
-        authCodeRepository.save(authCodeDomain)
-
-        if (!isExistsAuthentication) {
-            val smsAuthentication = Authentication(phoneNumber)
-            authenticationRepository.save(smsAuthentication)
-        }
-
+        authUtil.saveAuthCode(phoneNumber, authCode)
     }
 
     private fun generateAuthCode(number: Int = 9999): Int = (0..number).random()
