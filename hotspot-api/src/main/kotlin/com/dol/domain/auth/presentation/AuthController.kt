@@ -52,7 +52,7 @@ class AuthController(
         sendAuthCodeService.execute(phoneNumber)
             .let { ResponseEntity.status(HttpStatus.OK).build() }
 
-    @GetMapping("/verify/auth-code")
+    @PatchMapping("/verify/auth-code")
     fun verifyAuthCode(@RequestParam("phoneNumber") phoneNumber: String, @RequestParam("authCode") authCode: Int): ResponseEntity<Void> =
         verifyAuthCodeService.execute(phoneNumber, authCode)
             .let { ResponseEntity.status(HttpStatus.OK).build() }
