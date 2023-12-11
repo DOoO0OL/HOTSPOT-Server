@@ -1,14 +1,9 @@
 package com.dol.domain.auth.service.impl
 
 import com.dol.common.util.AuthUtil
-import com.dol.domain.auth.entity.AuthCode
-import com.dol.domain.auth.entity.Authentication
-import com.dol.domain.auth.exception.AuthenticationNotFoundException
 import com.dol.domain.auth.exception.ManyAuthenticationRequestException
-import com.dol.domain.auth.repository.AuthCodeRepository
 import com.dol.domain.auth.repository.AuthenticationRepository
 import com.dol.domain.auth.service.SendAuthCodeService
-import com.dol.thirdparty.coolSms.properties.CoolSmsExpProperties
 import com.dol.thirdparty.coolSms.sender.CoolSmsSender
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

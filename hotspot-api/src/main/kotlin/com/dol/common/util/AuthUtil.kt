@@ -4,20 +4,22 @@ import com.dol.domain.auth.entity.AuthCode
 import com.dol.domain.auth.entity.Authentication
 import com.dol.domain.auth.repository.AuthCodeRepository
 import com.dol.domain.auth.repository.AuthenticationRepository
-import com.dol.thirdparty.coolSms.properties.CoolSmsExpProperties
 import org.springframework.stereotype.Component
 
 @Component
 class AuthUtil(
-    private val coolSmsExpProperties: CoolSmsExpProperties,
     private val authCodeRepository: AuthCodeRepository,
     private val authenticationRepository: AuthenticationRepository
 ) {
+
+    companion object {
+        const val SMS_EXP = 300
+    }
     fun saveAuthCode(phoneNumber: String, authCode: Int) {
         val authCodeDomain = AuthCode(
             phoneNumber = phoneNumber,
             authCode = authCode,
-            expiredAt = coolSmsExpProperties.coolSmsExp
+            expiredAt = SMS_EXP
         )
         authCodeRepository.save(authCodeDomain)
     }
