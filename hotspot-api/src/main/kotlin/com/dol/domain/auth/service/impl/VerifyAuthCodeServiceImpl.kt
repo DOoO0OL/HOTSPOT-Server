@@ -21,14 +21,14 @@ class VerifyAuthCodeServiceImpl(
         val authenticationEntity = authenticationRepository.findByIdOrNull(phoneNumber)
             ?: throw AuthenticationNotFoundException("시간이 만료되었습니다.")
         val authCodeEntity = authCodeRepository.findByIdOrNull(phoneNumber)
-            ?: throw AuthCodeNotFoundException("인증코드를 찾을 수 없습니다.")
+            ?: throw AuthCodeNotFoundException("인증코드를 찾을 수 없습니다. info : [ phoneNumber = $phoneNumber ]")
 
         if (authenticationEntity.attemptCount > 5)
-            throw ManyAuthenticationRequestException("인증 코드 확인 요청을 5번 초과 한 사용자 입니다.")
+            throw ManyAuthenticationRequestException("인증 코드 확인 요청을 5번 초과 한 사용자 입니다. info : [ phoneNumber = ${authenticationEntity.phoneNumber} ]")
 
         if (authCode != authCodeEntity.authCode) {
             authenticationRepository.save(authenticationEntity.increaseAuthenticationCount())
-            throw AuthCodeNotMatchException("인증번호가 일치하지 않습니다.")
+            throw AuthCodeNotMatchException("인증번호가 일치하지 않습니다. info : [ authCode = $authCode ]")
         }
         authenticationRepository.save(authenticationEntity.certified())
     }
