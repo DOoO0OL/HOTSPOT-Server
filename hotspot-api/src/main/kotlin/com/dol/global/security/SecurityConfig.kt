@@ -41,6 +41,7 @@ class SecurityConfig(
             .mvcMatchers(HttpMethod.PATCH, "auth/reissue").permitAll()
             .mvcMatchers(HttpMethod.DELETE, "auth/logout").permitAll()
             .mvcMatchers(HttpMethod.POST, "auth/send/auth-code").permitAll()
+            .mvcMatchers(HttpMethod.GET, "auth/verify/auth-code").permitAll()
 
             // user
             .mvcMatchers(HttpMethod.GET, "user/my-page").authenticated()

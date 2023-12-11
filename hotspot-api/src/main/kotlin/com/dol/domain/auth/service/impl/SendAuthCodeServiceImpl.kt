@@ -8,6 +8,7 @@ import com.dol.thirdparty.coolSms.sender.CoolSmsSender
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 @Transactional(rollbackFor = [Exception::class])
@@ -25,10 +26,10 @@ class SendAuthCodeServiceImpl(
                 else
                     authenticationRepository.save(it.increaseAuthenticationCount())
             }
-        val authCode = generateAuthCode(9999)
+        val authCode = generateAuthCode()
         coolSmsSender.sendSms(phoneNumber, authCode)
         authUtil.saveAuthCode(phoneNumber, authCode)
     }
 
-    private fun generateAuthCode(number: Int = 9999): Int = (0..number).random()
+    private fun generateAuthCode() = Random().nextInt(8888) + 1111
 }
