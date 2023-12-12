@@ -24,7 +24,9 @@ class MyPageServiceImpl(
             id = user.id,
             name = user.name,
             nickName = user.nickName,
-            profileUrl = user.profileUrl
+            profileUrl = user.profileUrl,
+            follower = user.follower.size,
+            following = user.following.size
         )
     }
 }
