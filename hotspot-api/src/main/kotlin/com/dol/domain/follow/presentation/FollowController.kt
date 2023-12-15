@@ -35,7 +35,7 @@ class FollowController(
             .let { ResponseEntity.status(HttpStatus.NO_CONTENT).build() }
 
     @GetMapping("/recommend")
-    fun followRecommend() : ResponseEntity<List<FollowRecommendResponse>> =
+    fun followRecommend(): ResponseEntity<List<FollowRecommendResponse>> =
         followRecommendService.execute()
             .let { ResponseEntity.ok(it)}
 
