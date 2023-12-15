@@ -1,11 +1,14 @@
 package com.dol.domain.follow.presentation
 
 import com.dol.domain.follow.presentation.data.request.FollowRequest
+import com.dol.domain.follow.presentation.data.response.FollowRecommendResponse
 import com.dol.domain.follow.service.FollowCancelService
+import com.dol.domain.follow.service.FollowRecommendService
 import com.dol.domain.follow.service.FollowService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,7 +20,8 @@ import java.util.UUID
 @RequestMapping("/follow")
 class FollowController(
     private val followService: FollowService,
-    private val followCancelService: FollowCancelService
+    private val followCancelService: FollowCancelService,
+    private val followRecommendService: FollowRecommendService
 ) {
 
     @PostMapping
@@ -29,5 +33,10 @@ class FollowController(
     fun followCancel(@PathVariable("userIdx") toUserIdx: UUID) : ResponseEntity<Void> =
         followCancelService.execute(toUserIdx)
             .let { ResponseEntity.status(HttpStatus.NO_CONTENT).build() }
+
+    @GetMapping("/recommend")
+    fun followRecommend(): ResponseEntity<List<FollowRecommendResponse>> =
+        followRecommendService.execute()
+            .let { ResponseEntity.ok(it)}
 
 }
