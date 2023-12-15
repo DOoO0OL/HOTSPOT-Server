@@ -5,7 +5,6 @@ import com.dol.domain.follow.service.FollowRecommendService
 import com.dol.domain.user.repository.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import kotlin.random.Random
 
 @Service
 @Transactional(rollbackFor = [Exception::class])
@@ -14,7 +13,7 @@ class FollowRecommendServiceImpl(
 ) : FollowRecommendService {
     override fun execute(): List<FollowRecommendResponse> {
         val allUser = userRepository.findAll()
-        return allUser.shuffled(Random).map {
+        return allUser.map {
             FollowRecommendResponse(
                 id = it.id,
                 name = it.name,
