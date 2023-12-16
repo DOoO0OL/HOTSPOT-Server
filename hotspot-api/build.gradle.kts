@@ -14,4 +14,5 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     implementation("com.querydsl:querydsl-jpa:5.0.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 }
