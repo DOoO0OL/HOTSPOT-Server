@@ -14,13 +14,19 @@ class Hotplace(
     val name: String,
 
     @Column(columnDefinition = "VARCHAR(200)", nullable = false, length = 200)
-    val description: String,
+    val address: String,
 
-    @Column(columnDefinition = "DECIMAL", nullable = false)
-    val altitude: Long,
+    @Column(columnDefinition = "VARCHAR(20)", nullable = true, length = 20)
+    val instagramId: String?,
 
+    @Column(columnDefinition = "VARCHAR(100)", nullable = false, length = 100)
+    val imgURL: String,
+    
     @Column(columnDefinition = "DECIMAL", nullable = false)
     val latitude: Long,
+
+    @Column(columnDefinition = "DECIMAL", nullable = false)
+    val longitude: Long,
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
