@@ -34,8 +34,10 @@ enum class ErrorStatus(
     MANY_AUTH_CODE_REQUEST(429),
     MESSAGE_SEND_FAILED(400),
 
-
     // FOLLOW
-    ALREADY_FOLLOW(401)
+    ALREADY_FOLLOW(401),
+
+    // FILE
+    FAILED_FILE_UPLOAD(401)
 
 }
