@@ -26,15 +26,17 @@ class ImageUploadServiceImpl(
         val objectMetadata = ObjectMetadata()
         objectMetadata.contentLength = file.size
         objectMetadata.contentType = file.contentType
-        try {
-            val inputStream: InputStream = file.inputStream
+        kotlin.runCatching {
             amazonS3.putObject(
-                PutObjectRequest(awsS3Properties.bucket, fileName, inputStream, objectMetadata)
-                    .withCannedAcl(CannedAccessControlList.PublicRead)
+                awsS3Properties.bucket,
+                fileName,
+                file.inputStream,
+                objectMetadata
             )
-        } catch (e: IOException) {
+        }.onFailure {
             throw FailedFileUploadException("이미지 업로드에 실패하였습니다.")
         }
+
         return ImageUrlResponse(
             url = amazonS3.getUrl(awsS3Properties.bucket, fileName).toString()
         )
