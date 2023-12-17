@@ -51,6 +51,9 @@ class SecurityConfig(
             .mvcMatchers(HttpMethod.DELETE, "/follow/{userIdx}").authenticated()
             .mvcMatchers(HttpMethod.GET, "/follow/recommend").authenticated()
 
+            // image
+            .mvcMatchers(HttpMethod.POST, "/image").authenticated()
+
             .anyRequest().permitAll()
     }
 
