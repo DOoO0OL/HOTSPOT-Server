@@ -1,5 +1,6 @@
 package com.dol.domain.image.presentation
 
+import com.dol.domain.image.presentation.data.response.ImageUrlResponse
 import com.dol.domain.image.service.ImageUploadService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -14,7 +15,7 @@ class ImageController(
     private val imageUploadService: ImageUploadService
 ) {
     @PostMapping
-    fun uploadImage(@RequestParam("image") file: MultipartFile) : ResponseEntity<String> =
+    fun uploadImage(@RequestParam("image") file: MultipartFile) : ResponseEntity<ImageUrlResponse> =
         imageUploadService.execute(file)
             .let { ResponseEntity.ok(it) }
 
