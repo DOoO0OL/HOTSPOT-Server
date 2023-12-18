@@ -11,23 +11,23 @@ class Hotplace(
     @Column(name = "idx", columnDefinition = "BINARY(16)", nullable = false)
     override val idx: UUID,
 
-    @Column(columnDefinition = "VARCHAR(50)", nullable = false, length = 50)
+    @Column(columnDefinition = "VARCHAR(50)", nullable = false)
     val name: String,
 
-    @Column(columnDefinition = "VARCHAR(200)", nullable = false, length = 200)
+    @Column(columnDefinition = "VARCHAR(200)", nullable = false)
     val address: String,
 
-    @Column(columnDefinition = "VARCHAR(20)", nullable = true, length = 20)
+    @Column(columnDefinition = "VARCHAR(20)", nullable = true)
     val instagramId: String?,
 
-    @Column(columnDefinition = "VARCHAR(100)", nullable = false, length = 100)
+    @Column(columnDefinition = "VARCHAR(100)", nullable = false)
     val imgURL: String,
 
-    @Column(columnDefinition = "DECIMAL", nullable = false)
-    val longitude: Double,
+    @Column(columnDefinition = "VARCHAR(30)", nullable = false)
+    val longitude: String,
 
-    @Column(columnDefinition = "DECIMAL", nullable = false)
-    val latitude: Double,
+    @Column(columnDefinition = "VARCHAR(30)", nullable = false)
+    val latitude: String,
 
     @Enumerated(EnumType.STRING)
     val approveStatus: ApproveStatus,
