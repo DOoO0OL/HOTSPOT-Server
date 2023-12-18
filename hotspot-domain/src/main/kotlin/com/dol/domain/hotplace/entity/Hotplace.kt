@@ -21,7 +21,7 @@ class Hotplace(
     val instagramId: String?,
 
     @Column(columnDefinition = "VARCHAR(100)", nullable = false)
-    val imgURL: String,
+    val imgURL: String?,
 
     @Column(columnDefinition = "VARCHAR(30)", nullable = false)
     val longitude: String,
