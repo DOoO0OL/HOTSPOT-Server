@@ -34,7 +34,7 @@ class User(
     val gu: String,
 
     @Column(nullable = true, columnDefinition = "TEXT")
-    val profileUrl: String?,
+    var profileUrl: String?,
 
     @Enumerated(EnumType.STRING)
     val authority: Authority,
@@ -44,4 +44,22 @@ class User(
 
     @OneToMany(mappedBy = "fromUser")
     val follower: List<Follow> = listOf()
-): BaseUUIDEntity(idx)
+): BaseUUIDEntity(idx) {
+
+    fun updateProfileUrl(profileUrl: String) : User =
+        User(
+            idx = this.idx,
+            id = this.id,
+            name = this.name,
+            nickName = this.nickName,
+            phoneNumber = this.phoneNumber,
+            password = this.password,
+            city = this.city,
+            gu = this.gu,
+            profileUrl = profileUrl,
+            authority = this.authority,
+            following = this.following,
+            follower = this.follower
+        )
+
+}
