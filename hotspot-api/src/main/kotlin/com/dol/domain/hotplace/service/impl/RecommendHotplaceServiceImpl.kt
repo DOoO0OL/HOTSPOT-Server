@@ -5,6 +5,7 @@ import com.dol.domain.hotplace.exception.HotplaceNotFoundException
 import com.dol.domain.hotplace.repository.HotplaceRepository
 import com.dol.domain.hotplace.service.RecommendHotplaceService
 import com.dol.domain.recommend.entity.Recommend
+import com.dol.domain.recommend.repository.RecommendRepository
 import com.dol.domain.user.exception.UserNotFoundException
 import com.dol.domain.user.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -21,7 +22,7 @@ class RecommendHotplaceServiceImpl(
     private val recommendRepository: RecommendRepository,
     private val userUtil: UserUtil
 ) : RecommendHotplaceService {
-    override fun execute(idx: Long) {
+    override fun execute(idx: UUID) {
         val user = userRepository.findByIdOrNull(userUtil.getCurrentUserIdx())
             ?: throw UserNotFoundException("해당 유저를 찾을 수 없습니다. info [ userIdx = ${userUtil.getCurrentUserIdx()} ]")
 
