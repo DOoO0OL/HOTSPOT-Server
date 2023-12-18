@@ -52,6 +52,9 @@ class SecurityConfig(
             .mvcMatchers(HttpMethod.DELETE, "/follow/{userIdx}").authenticated()
             .mvcMatchers(HttpMethod.GET, "/follow/recommend").authenticated()
 
+            // hotplace
+            .mvcMatchers(HttpMethod.POST, "/hotplace").authenticated()
+
             // image
             .mvcMatchers(HttpMethod.POST, "/image").authenticated()
 
