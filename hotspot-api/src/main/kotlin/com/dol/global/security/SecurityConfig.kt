@@ -45,6 +45,7 @@ class SecurityConfig(
 
             // user
             .mvcMatchers(HttpMethod.GET, "user/my-page").authenticated()
+            .mvcMatchers(HttpMethod.GET, "user/profileImage").authenticated()
 
             // follow
             .mvcMatchers(HttpMethod.POST, "/follow").authenticated()
