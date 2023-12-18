@@ -8,5 +8,5 @@ import java.util.UUID
 
 interface RecommendRepository : CrudRepository<Recommend, UUID> {
     @Query("SELECT COUNT(*) FROM Recommend r WHERE r.hotplace = :hotplace")
-    fun getHotplaceRecommendCount(hotplace: Hotplace): Long
+    fun getHotplaceRecommendCount(hotplace: Hotplace): Long?
 }
