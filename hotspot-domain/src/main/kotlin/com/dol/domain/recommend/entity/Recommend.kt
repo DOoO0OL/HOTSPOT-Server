@@ -24,5 +24,5 @@ class Recommend(
     val hotplace: Hotplace,
 
     @CreatedDate
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime = LocalDateTime.now()
 ) : BaseUUIDEntity(idx)
