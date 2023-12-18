@@ -4,7 +4,7 @@ import com.dol.thirdparty.kakao.properties.KakaoProperties
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
-import org.springframework.boot.json.JsonParser
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder
 class KakaoUtil(
     private val kakaoProperties: KakaoProperties
 ) {
-    fun addressInCoordinate(address: String): Pair<Double, Double> {
+    fun addressInCoordinate(address: String): Pair<String, String> {
         val restTemplate = RestTemplate()
 
         val headers = org.springframework.http.HttpHeaders()
@@ -32,8 +32,10 @@ class KakaoUtil(
 
         val response = restTemplate.exchange(uriComponents.toString(), HttpMethod.GET, request, String::class.java)
 
-        val jsonObject = JSONParser().parse(response.body) as JSONObject
+        val jsonObject = (JSONParser().parse(response.body) as JSONObject)
+        val documents = JSONParser().parse(jsonObject["documents"].toString()) as JSONArray
+        val coordinate = JSONParser().parse(documents[0].toString()) as JSONObject
 
-        return (jsonObject["x"].toString().toDouble() to jsonObject["y"].toString().toDouble())
+        return coordinate["x"].toString() to coordinate["y"].toString()
     }
 }
