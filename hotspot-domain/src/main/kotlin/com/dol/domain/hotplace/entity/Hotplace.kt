@@ -1,6 +1,7 @@
 package com.dol.domain.hotplace.entity
 
 import com.dol.common.entity.BaseUUIDEntity
+import com.dol.domain.hotplace.enums.ApproveStatus
 import com.dol.domain.user.entity.User
 import java.util.UUID
 import javax.persistence.*
@@ -21,12 +22,15 @@ class Hotplace(
 
     @Column(columnDefinition = "VARCHAR(100)", nullable = false, length = 100)
     val imgURL: String,
-    
-    @Column(columnDefinition = "DECIMAL", nullable = false)
-    val latitude: Long,
 
     @Column(columnDefinition = "DECIMAL", nullable = false)
-    val longitude: Long,
+    val longitude: Double,
+
+    @Column(columnDefinition = "DECIMAL", nullable = false)
+    val latitude: Double,
+
+    @Enumerated(EnumType.STRING)
+    val approveStatus: ApproveStatus,
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
