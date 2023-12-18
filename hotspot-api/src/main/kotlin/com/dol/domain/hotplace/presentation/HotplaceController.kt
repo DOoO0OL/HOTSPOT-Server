@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("hotplace")
+@RequestMapping("/hotplace")
 class HotplaceController(
     private val createHotplaceService: CreateHotplaceService
 ) {
