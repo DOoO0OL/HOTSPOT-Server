@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 
@@ -24,7 +25,7 @@ class UserController(
             .let { ResponseEntity.ok(it) }
 
     @PostMapping("profileImage")
-    fun uploadProfileImage(@RequestParam("image") file: MultipartFile) : ResponseEntity<ImageUrlResponse> =
+    fun uploadProfileImage(@RequestPart("image") file: MultipartFile) : ResponseEntity<ImageUrlResponse> =
         uploadProfileImageService.execute(file)
             .let { ResponseEntity.ok(it) }
 
