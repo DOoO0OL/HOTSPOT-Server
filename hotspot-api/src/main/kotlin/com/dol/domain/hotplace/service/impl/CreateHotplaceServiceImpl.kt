@@ -34,8 +34,8 @@ class CreateHotplaceServiceImpl(
             address = createHotplaceRequest.address,
             instagramId = createHotplaceRequest.instagramId,
             imgURL = createHotplaceRequest.imgURL,
-            longitude = longitude,
-            latitude = latitude,
+            longitude = longitude.toDouble(),
+            latitude = latitude.toDouble(),
             approveStatus = ApproveStatus.PENDING,
             user = user
         )

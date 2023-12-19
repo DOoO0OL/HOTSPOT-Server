@@ -3,6 +3,7 @@ package com.dol.domain.hotplace.entity
 import com.dol.common.entity.BaseUUIDEntity
 import com.dol.domain.hotplace.enums.ApproveStatus
 import com.dol.domain.user.entity.User
+import java.math.BigDecimal
 import java.util.UUID
 import javax.persistence.*
 
@@ -23,11 +24,11 @@ class Hotplace(
     @Column(columnDefinition = "VARCHAR(100)", nullable = false)
     val imgURL: String?,
 
-    @Column(columnDefinition = "VARCHAR(30)", nullable = false)
-    val longitude: String,
+    @Column(columnDefinition = "DECIMAL(20, 12)", nullable = false)
+    val longitude: Double,
 
-    @Column(columnDefinition = "VARCHAR(30)", nullable = false)
-    val latitude: String,
+    @Column(columnDefinition = "DECIMAL(20, 12)", nullable = false)
+    val latitude: Double,
 
     @Enumerated(EnumType.STRING)
     val approveStatus: ApproveStatus,

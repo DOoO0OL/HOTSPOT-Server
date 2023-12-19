@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder
 class KakaoUtil(
     private val kakaoProperties: KakaoProperties
 ) {
+    private val logger = LoggerFactory.getLogger(KakaoUtil::class.java)
     fun addressInCoordinate(address: String): Pair<String, String> {
         val restTemplate = RestTemplate()
 
