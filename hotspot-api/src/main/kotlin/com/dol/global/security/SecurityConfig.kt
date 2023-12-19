@@ -60,6 +60,9 @@ class SecurityConfig(
             // image
             .mvcMatchers(HttpMethod.POST, "/image").authenticated()
 
+            // admin
+            .mvcMatchers(HttpMethod.PATCH, "/admin/reject/{hotplace_idx}").hasRole("ADMIN")
+
             .anyRequest().permitAll()
     }
 
