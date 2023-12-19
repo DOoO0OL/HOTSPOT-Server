@@ -56,6 +56,8 @@ class SecurityConfig(
             .mvcMatchers(HttpMethod.POST, "/hotplace").authenticated()
             .mvcMatchers(HttpMethod.GET, "/hotplace/{idx}").authenticated()
             .mvcMatchers(HttpMethod.POST, "/hoplace/recommend/{idx}").authenticated()
+            .mvcMatchers(HttpMethod.GET, "/hotplace/list").authenticated()
+            .mvcMatchers(HttpMethod.GET, "/hotplace/my").authenticated()
 
             // image
             .mvcMatchers(HttpMethod.POST, "/image").authenticated()
