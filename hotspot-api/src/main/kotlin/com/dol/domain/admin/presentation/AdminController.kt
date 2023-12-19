@@ -14,7 +14,7 @@ import java.util.UUID
 class AdminController(
     private val approveHotplaceService: ApproveHotplaceService
 ) {
-    @PatchMapping("/{hotplace_idx}")
+    @PatchMapping("/approve/{hotplace_idx}")
     fun approveHotplace(@PathVariable("hotplace_idx") hotplaceIdx: UUID): ResponseEntity<Void> {
         approveHotplaceService.execute(hotplaceIdx)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
