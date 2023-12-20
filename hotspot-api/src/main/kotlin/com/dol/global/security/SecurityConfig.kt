@@ -64,6 +64,7 @@ class SecurityConfig(
 
             // admin
             .mvcMatchers(HttpMethod.PATCH, "/admin/approve/{hotplace_id}").hasRole("ADMIN")
+            .mvcMatchers(HttpMethod.PATCH, "/admin/reject/{hotplace_idx}").hasRole("ADMIN")
 
             .anyRequest().permitAll()
     }
