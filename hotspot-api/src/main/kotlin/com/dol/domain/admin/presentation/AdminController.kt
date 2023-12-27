@@ -13,7 +13,7 @@ import java.util.UUID
 @RestController
 @RequestMapping("/admin")
 class AdminController(
-    private val approveHotplaceService: ApproveHotplaceService
+    private val approveHotplaceService: ApproveHotplaceService,
     private val rejectHotplaceService: RejectHotplaceService
 ) {
     @PatchMapping("/approve/{hotplace_idx}")
