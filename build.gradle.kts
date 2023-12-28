@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     kotlin("jvm") version "1.7.10"
@@ -55,4 +56,9 @@ allprojects {
         useJUnitPlatform()
     }
 
+    val jar: Jar by tasks
+    val bootJar: BootJar by tasks
+
+    jar.enabled = true
+    bootJar.enabled = false
 }
