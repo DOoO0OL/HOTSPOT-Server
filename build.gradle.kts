@@ -56,9 +56,5 @@ allprojects {
         useJUnitPlatform()
     }
 
-    val jar: Jar by tasks
-    val bootJar: BootJar by tasks
 
-    jar.enabled = true
-    bootJar.enabled = false
 }
