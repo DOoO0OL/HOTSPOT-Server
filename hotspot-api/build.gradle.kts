@@ -18,9 +18,3 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:5.0.0")
     implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 }
-
-val jar: Jar by tasks
-val bootJar: BootJar by tasks
-
-jar.enabled = true
-bootJar.enabled = false
