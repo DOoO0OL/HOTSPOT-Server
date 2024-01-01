@@ -10,7 +10,7 @@ spring:
     port: 6379
 
   jpa:
-    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    database-platform: ${DB_PLATFORM}
     hibernate:
       ddl-auto: update
     show-sql: true
